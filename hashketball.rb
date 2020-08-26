@@ -126,4 +126,76 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+    found_player = get_players.find do |player|
+        player[:player_name] == player_name
+    end
+    found_player[:points]
+end
+
+def shoe_size(player_name)
+    found_player = get_players.find do |player|
+        player[:player_name] == player_name
+    end
+    found_player[:shoe]
+end
+
+def team_colors(team_name)
+    game_hash.each do |location, team_data|
+        if team_data.has_value?(team_name)
+            return team_data[:colors]
+        end
+    end
+end
+
+def team_names
+    team_names = []
+    game_hash.each do |location, team_data|
+        team_names.push(team_data[:team_name])
+    end
+    team_names
+end
+
+def player_numbers(team_name)
+    jersey_numbers = []
+    game_hash.each do |location, team_data|
+        if team_data[:team_name] == team_name
+            team_data[:players].each do |hash|
+                jersey_numbers.push(hash[:number])
+            end
+        end
+    end
+    jersey_numbers
+end
+
+def big_shoe_rebounds
+    largest_shoe = 19
+    game_hash.each do |location, team_data|
+        team_data[:players].each do |hash|
+            if hash[:shoe] > largest_shoe
+                largest_shoe == hash[:shoe]
+            end
+        end
+    end
+    game_hash.each do |location, team_data|
+        team_data[:players].each do |hash|
+            if hash[:shoe] == largest_shoe
+                return hash[:rebounds]
+            end
+        end
+    end
+end
+
+def player_stats(player_name)
+    found_player = get_players.find do |player|
+        player[:player_name] == player_name
+    end
+    found_player
+end
+
+def get_players
+    players = game_hash.keys.map do |team|
+        game_hash[team][:players]
+    end
+    players.flatten
+end
