@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -127,3 +129,104 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(players_name)
+  pointy=nil
+    game_hash.each do |location, team_data|
+      counter=0
+      while counter < team_data[:players].length do
+          if players_name==team_data[:players][counter][:player_name]
+              pointy = team_data[:players][counter][:points]
+          end
+            counter = counter + 1
+      end
+    end
+    pointy
+end
+
+def shoe_size(players_name)
+  size=nil
+    game_hash.each do |location, team_data|
+      counter=0
+      while counter < team_data[:players].length do
+          if players_name==team_data[:players][counter][:player_name]
+              size = team_data[:players][counter][:shoe]
+          end
+            counter = counter + 1
+      end
+    end
+    size
+end
+
+
+def team_colors(teamname)
+  colors=nil
+    game_hash.each do |location, team_data|
+      counter=0
+      while counter < team_data[:players].length do
+          if teamname==team_data[:team_name]
+              colors = team_data[:colors]
+          end
+            counter = counter + 1
+      end
+    end
+    colors
+end
+
+def team_names
+  array_of_teams=[]
+  array_of_teams<<game_hash[:home][:team_name]
+  array_of_teams<<game_hash[:away][:team_name]
+  array_of_teams
+end
+
+def player_numbers(teamname)
+  team_numbers=[]
+    game_hash.each do |location, team_data|
+      counter=0
+      while counter < team_data[:players].length do
+
+          if teamname==team_data[:team_name]
+              team_numbers << team_data[:players][counter][:number]
+          end
+            counter = counter + 1
+      end
+    end
+    team_numbers
+end
+
+
+def player_stats(players_name)
+  stats=nil
+    game_hash.each do |location, team_data|
+      counter=0
+      while counter < team_data[:players].length do
+          if players_name==team_data[:players][counter][:player_name]
+              stats = team_data[:players][counter]
+          end
+            counter = counter + 1
+      end
+    end
+    stats
+end
+
+def big_shoe_rebounds
+  shoe_array=[]
+  rebound=nil
+  game_hash.each do |location, team_data|
+    counter=0
+      while counter < team_data[:players].length do
+        player=nil
+        player=team_data[:players][counter][:player_name]
+        shoe_array << shoe_size(player)
+        counter = counter + 1
+      end
+        counter2=0
+      while counter2 < team_data[:players].length do
+        if shoe_array.max == team_data[:players][counter2][:shoe]
+          rebound=team_data[:players][counter2][:rebounds]
+        end
+        counter2 = counter2 + 1
+      end
+  end
+  rebound
+end
