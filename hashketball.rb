@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -127,3 +128,120 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+  game_hash
+  game_hash.each do |team, info|
+    #binding.pry
+    info[:players].each do |player|
+      if player[:player_name] == player_name
+        return player[:points]
+      end
+    end
+  end
+end
+
+
+def shoe_size(player_name)
+  game_hash
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      #binding.pry
+      if player[:player_name] == player_name
+        return player[:shoe]
+      end
+    end
+  end
+end
+
+
+def team_colors(team_name)
+  game_hash
+  game_hash.each do |team, info|
+    #binding.pry
+    if info[:team_name] == team_name
+      return info[:colors]
+    end
+  end
+end
+
+
+def team_names
+  game_hash
+  array_of_names = []
+  game_hash.each do |team, info|
+    #binding.pry
+    array_of_names << info[:team_name]
+  end
+  array_of_names
+end
+
+
+def player_numbers(team_name)
+  game_hash
+  array_of_numbers = []
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      if info[:team_name] == team_name
+        array_of_numbers << player[:number]
+      end
+    end
+  end
+  array_of_numbers
+end
+
+
+def player_stats(player_name)
+  game_hash
+  stats_hash = {}
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      #binding.pry
+      if player[:player_name] == player_name
+        return player
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  game_hash
+  largest_shoe = 0
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      if player[:shoe] > largest_shoe
+        largest_shoe = player[:shoe]
+      end
+    end
+  end
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      if player[:shoe] == largest_shoe
+        return player[:rebounds]
+      end
+    end
+  end
+end
+
+
+def most_points_scored
+  game_hash
+  most_points = 0
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      if player[:points] > most_points
+        most_points = player[:points]
+      end
+    end
+  end
+  game_hash.each do |team, info|
+    info[:players].each do |player|
+      if player[:points] == most_points
+        return player[:points]
+      end
+    end
+  end
+end
+
+
+
+
