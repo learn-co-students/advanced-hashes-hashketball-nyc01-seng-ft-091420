@@ -126,4 +126,86 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(playerName)
+  hash = game_hash
+
+  hash.each { | key, value|
+      hash[key][:players].map { |e|
+        if e[:player_name] === playerName
+          return e[:points]
+        end
+       }
+    }
+end
+
+def shoe_size(playerName)
+  hash = game_hash
+
+  hash.each { | key, value|
+      hash[key][:players].map { |e|
+        if e[:player_name] === playerName
+          return e[:shoe]
+        end
+       }
+    }
+end
+
+def team_colors(teamName)
+  hash = game_hash
+  hash.each { |key, value|
+    if hash[key][:team_name] === teamName
+      return hash[key][:colors]
+    end
+  }
+end
+
+def team_names
+  hash = game_hash
+  teamNameArray = []
+  hash.each { |key, value|
+    teamNameArray.push(hash[key][:team_name])
+  }
+  return teamNameArray
+end
+
+def player_numbers(teamName)
+  hash = game_hash
+  playerNumberArray = []
+  hash.each { |key, value|
+    if hash[key][:team_name] === teamName
+      hash[key][:players].map { |e|
+        playerNumberArray.push(e[:number])
+        }
+    end
+  }
+  return playerNumberArray
+end
+
+def player_stats(playerName)
+  hash = game_hash
+  hash.each { |key, value|
+    hash[key][:players].map { |e|
+      if e[:player_name] === playerName
+        return e
+      end
+     }
+  }
+end
+
+def big_shoe_rebounds
+  hash = game_hash
+  largest_size = nil
+  rebounds = nil
+  hash.each { |key, value|
+      hash[key][:players].map { |e|
+        if largest_size == nil || largest_size < e[:shoe]
+          largest_size = e[:shoe]
+          rebounds = e[:rebounds]
+        end
+        }
+  }
+  return rebounds
+end
+
+puts big_shoe_rebounds
