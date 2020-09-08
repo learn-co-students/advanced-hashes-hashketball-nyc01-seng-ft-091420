@@ -1,4 +1,7 @@
 # Write your code below game_hash
+
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -127,3 +130,110 @@ def game_hash
 end
 
 # Write code here
+
+
+def num_points_scored(player)
+  
+  points_scored = 
+  game_hash.each do |teams, teams_stats|
+#teams = :home/away          #teams_stats = :teamname => , :colors =>  ,:players => 
+  
+    players_array = teams_stats[:players]
+    players_array.each do |player_data|
+      #player_data = key/value pairs of it's stats
+      
+      if player_data[:player_name] == player
+        return points_score = player_data[:points]
+      end
+    end
+  end
+end
+
+
+def shoe_size(player)
+  shoe_size =
+  
+  game_hash.each do |team, teams_stats|
+    player_array = teams_stats[:players]
+    
+    player_array.each do |player_data|
+      if player_data[:player_name] == player
+        return shoe_size = player_data[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  #team_colors = []
+  
+  game_hash.each do |team, teams_stats|
+    
+    if teams_stats[:team_name] == team_name
+      return teams_stats[:colors]
+    end
+  end
+end
+
+def team_names
+  names_array = []
+  
+  game_hash.each do |team, teams_stats|
+    team_name = teams_stats[:team_name]
+    names_array.push(team_name)
+  end
+  return names_array
+end
+
+
+def player_numbers(team_name)
+  jersey_numbers = []
+  
+  game_hash.each do |team, teams_stats|
+    player_array = teams_stats[:players]
+
+    player_array.each do |player_data|
+      if teams_stats[:team_name] == team_name    
+        jersey_numbers.push(player_data[:number])
+      end
+    end
+  end
+  return jersey_numbers
+end
+
+
+def player_stats(name)
+  
+  game_hash.each do |teams, teams_stats|
+    player_array = teams_stats[:players]
+    
+    player_array.each do |player_data|
+      if player_data[:player_name] == name
+        return player_data
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  
+  game_hash.each do |teams, teams_stats|
+    
+    player_array = teams_stats[:players]
+    
+    biggest_shoes = 0
+    biggest_shoes_rebounds = 0
+    
+    player_array.each do |player_data|
+
+      if biggest_shoes < player_data[:shoe]
+        biggest_shoes = player_data[:shoe]
+        biggest_shoes_rebounds = player_data[:rebounds]
+      end
+    end
+    return biggest_shoes_rebounds
+  end
+  
+end
+
+
