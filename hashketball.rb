@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -126,4 +126,56 @@ def game_hash
   }
 end
 
-# Write code here
+def players_array
+  game_hash[:home][:players].push(game_hash[:away][:players]).flatten
+end
+
+def players_hash
+  Hash[players_array.collect { |element| [element[:player_name], element]}] 
+end
+
+
+def num_points_scored(name)
+  players_hash[name][:points]
+end
+
+
+def shoe_size(name)
+  players_hash[name][:shoe]
+end
+
+
+def team_colors(team)
+  if game_hash[:home].has_value? team
+    return game_hash[:home][:colors]
+  end
+  return game_hash[:away][:colors]
+end
+
+
+def team_names
+  team = game_hash.values.each_with_object([]) do |element, array|
+    array << element[:team_name]
+  end
+  team
+end
+
+
+def player_numbers(team)
+  if game_hash[:home].has_value? team 
+    return game_hash[:home][:players].map {|player| player[:number]}
+  end
+  return game_hash[:away][:players].map {|player| player[:number]}
+end
+
+
+def player_stats(name)
+  players_hash[name]
+end
+
+
+def big_shoe_rebounds
+  shoe_rebound = Hash[players_array.collect { |element| [element[:shoe], element[:rebounds]]}]
+  sorted = shoe_rebound.sort_by { |shoe, rebound| shoe}
+  sorted.last[1]
+end
