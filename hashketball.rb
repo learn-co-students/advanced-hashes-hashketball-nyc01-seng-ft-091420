@@ -126,4 +126,47 @@ def game_hash
   }
 end
 
-# Write code here
+def player_name(player)
+  game_hash.map {|k, v| v[:players]}.flatten.find {|player_name| player_name[:player_name] == player}
+end
+
+def num_points_scored(player)
+  player_name(player)[:points]
+end
+
+def shoe_size(player)
+  player_name(player)[:shoe]
+end
+
+def team_colors(team_name)
+  game_hash.find {|k, v| v[:team_name] == team_name}[1][:colors]
+end
+
+def team_names
+  game_hash.map {|k, v| v[:team_name]}
+end
+
+def player_numbers(team_name)
+  game_hash.find {|k, v| v[:team_name] == team_name}[1][:players].map { |i| i[:number] }
+end
+
+def player_stats(player_name)
+  player_name(player_name)
+end
+
+def big_shoe_rebounds
+  largest_shoes = game_hash.map {|k, v| v[:players]}.flatten.map {|i| [i[:player_name], i[:shoe]]}.to_h.max_by{|k, v| v}[0]
+  player_name(largest_shoes)[:rebounds]
+end
+
+def most_points_scored
+  game_hash.map {|k, v| v[:players]}.flatten.map {|i| [i[:player_name], i[:points]]}.to_h.max_by{|k, v| v}[0]
+end
+
+def winning_team
+  home_team_name = game_hash.find {|k, v| k == :home }[1][:team_name]
+  away_team_name = game_hash.find {|k, v| k == :away }[1][:team_name]
+  home_team_score = game_hash.find {|k, v| k == :home }[1][:players].map {|i| i[:points] }.sum
+  away_team_score = game_hash.find {|k, v| k == :away }[1][:players].map {|i| i[:points] }.sum
+  home_team_score > away_team_score ? home_team_name : away_team_name
+end
